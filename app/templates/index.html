@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake Weather App</title>
+</head>
+<body>
+    <h1>City Weather</h1>
+    <table id="weather-table">
+        <thead>
+            <tr>
+                <th>City</th>
+                <th>Weather</th>
+                <th>Temperature (°C)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Weather data will be inserted here by JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        fetch('/api/weather')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const tableBody = document.getElementById('weather-table').getElementsByTagName('tbody')[0];
+                data.forEach(cityData => {
+                    const row = tableBody.insertRow();
+                    const cityCell = row.insertCell();
+                    const weatherCell = row.insertCell();
+                    const tempCell = row.insertCell();
+
+                    cityCell.textContent = cityData.city;
+                    weatherCell.textContent = cityData.weather;
+                    tempCell.textContent = cityData.temp_c;
+                });
+            })
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+            });
+    </script>
+</body>
+</html>
