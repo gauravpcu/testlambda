@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Instance folder
+instance/
+
+# Log files
+*.log
+
+# Environment
+.env
+venv/
